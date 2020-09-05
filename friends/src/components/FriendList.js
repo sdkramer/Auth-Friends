@@ -1,4 +1,7 @@
 import React from "react";
+import axios from "axios";
+
+
 
 class FriendList extends React.Component {
   state = {
@@ -47,7 +50,11 @@ class FriendList extends React.Component {
     this.getData();
   }
 
-  getData = () => {};
+  getData = () => {
+    axios.get("http://localhost:5000/api/friends")
+    .then(res => console.log("getData response: ", res))
+    .catch(err => console.log("getData error: ", err))
+  };
 
   render() {
     return (
@@ -55,7 +62,7 @@ class FriendList extends React.Component {
         <div className="ui inverted segment">
           <div className="ui inverted relaxed divided list">
             {this.state.friends.map((friend) => (
-              <div className="item">
+              <div className="item" key={friend.id}>
                 <div className="content">
                   <div className="header">Name: {friend.name}</div>
                   <div className="header">Age: {friend.age}</div>
